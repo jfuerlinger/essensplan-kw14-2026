@@ -3,19 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Familienessensplan · KW 14 · 2026</title>
+  <title>Familien-Essensplan · Übersicht · 2026</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
 
     :root {
-      --breakfast-color: #FF9F43;
-      --lunch-color:     #48CFAD;
-      --dinner-color:    #5D9CEC;
-      --bg:              #F8F4F0;
-      --card:            #FFFFFF;
-      --text:            #3D3D3D;
-      --sub:             #8A8A8A;
-      --kids:            #FF6B9D;
+      --bg:   #F8F4F0;
+      --card: #FFFFFF;
+      --text: #3D3D3D;
+      --sub:  #8A8A8A;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -24,39 +20,39 @@
       font-family: 'Nunito', sans-serif;
       background: var(--bg);
       color: var(--text);
-      padding: 30px 20px 60px;
+      padding: 40px 20px 80px;
     }
 
     /* ── Header ── */
     header {
       text-align: center;
-      margin-bottom: 36px;
+      margin-bottom: 50px;
     }
-    header .week-label {
+    .site-badge {
       display: inline-block;
-      background: linear-gradient(135deg, #FF6B6B, #FF9F43);
+      background: linear-gradient(135deg, #6C5CE7, #A29BFE);
       color: #fff;
       font-weight: 800;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       letter-spacing: 2px;
       text-transform: uppercase;
-      padding: 6px 18px;
+      padding: 6px 20px;
       border-radius: 30px;
-      margin-bottom: 10px;
+      margin-bottom: 14px;
     }
     header h1 {
-      font-size: 2.2rem;
+      font-size: 2.6rem;
       font-weight: 900;
       color: var(--text);
       line-height: 1.2;
     }
     header p.subtitle {
-      margin-top: 8px;
+      margin-top: 10px;
       color: var(--sub);
-      font-size: 0.95rem;
+      font-size: 1rem;
     }
     header .family-badges {
-      margin-top: 14px;
+      margin-top: 18px;
       display: flex;
       justify-content: center;
       gap: 10px;
@@ -72,314 +68,166 @@
       color: var(--text);
     }
 
-    /* ── Legend ── */
-    .legend {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin-bottom: 30px;
-      flex-wrap: wrap;
-    }
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      font-size: 0.85rem;
-      font-weight: 700;
-    }
-    .legend-dot {
-      width: 12px; height: 12px;
-      border-radius: 50%;
+    /* ── Section title ── */
+    .section-title {
+      text-align: center;
+      font-size: 0.78rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--sub);
+      margin-bottom: 28px;
     }
 
-    /* ── Grid ── */
-    .week-grid {
+    /* ── Cards Grid ── */
+    .weeks-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 20px;
-      max-width: 1300px;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 28px;
+      max-width: 1100px;
       margin: 0 auto;
     }
 
-    /* ── Day Card ── */
-    .day-card {
+    /* ── Week Card ── */
+    .week-card {
       background: var(--card);
-      border-radius: 20px;
+      border-radius: 24px;
       overflow: hidden;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
-    }
-    .day-header {
-      padding: 14px 20px;
+      box-shadow: 0 6px 28px rgba(0,0,0,0.08);
+      text-decoration: none;
+      color: inherit;
       display: flex;
-      align-items: center;
-      justify-content: space-between;
+      flex-direction: column;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
-    .day-name {
-      font-size: 1.05rem;
+    .week-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.13);
+    }
+
+    .week-card-header {
+      padding: 28px 26px 22px;
+      position: relative;
+    }
+    .week-card:nth-child(1) .week-card-header { background: linear-gradient(135deg, #FF6B6B, #FF9F43); }
+    .week-card:nth-child(2) .week-card-header { background: linear-gradient(135deg, #A29BFE, #6C5CE7); }
+    .week-card:nth-child(3) .week-card-header { background: linear-gradient(135deg, #00CEC9, #48CFAD); }
+
+    .kw-label {
+      font-size: 0.78rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 6px;
+    }
+    .week-card-header h2 {
+      font-size: 1.6rem;
       font-weight: 900;
       color: #fff;
+      line-height: 1.2;
     }
-    .day-date {
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: rgba(255,255,255,0.85);
+    .week-card-header .dates {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.9);
+      margin-top: 6px;
     }
-    .day-kcal-badge {
+    .week-status {
+      position: absolute;
+      top: 20px;
+      right: 20px;
       background: rgba(255,255,255,0.25);
-      border-radius: 12px;
-      padding: 3px 10px;
-      font-size: 0.75rem;
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 0.72rem;
       font-weight: 800;
       color: #fff;
+      letter-spacing: 0.5px;
     }
 
-    /* day header gradients */
-    .day-card:nth-child(1) .day-header { background: linear-gradient(135deg,#FF6B6B,#FF9F43); }
-    .day-card:nth-child(2) .day-header { background: linear-gradient(135deg,#A29BFE,#6C5CE7); }
-    .day-card:nth-child(3) .day-header { background: linear-gradient(135deg,#00CEC9,#48CFAD); }
-    .day-card:nth-child(4) .day-header { background: linear-gradient(135deg,#FD79A8,#E84393); }
-    .day-card:nth-child(5) .day-header { background: linear-gradient(135deg,#FDCB6E,#E17055); }
-    .day-card:nth-child(6) .day-header { background: linear-gradient(135deg,#55EFC4,#00B894); }
-    .day-card:nth-child(7) .day-header { background: linear-gradient(135deg,#74B9FF,#0984E3); }
-
-    /* ── Meal Rows ── */
-    .meal {
-      padding: 13px 18px;
-      border-bottom: 1px solid #F0EDE8;
-    }
-    .meal:last-child { border-bottom: none; }
-
-    .meal-top {
+    .week-card-body {
+      padding: 20px 26px 26px;
+      flex: 1;
       display: flex;
-      align-items: flex-start;
-      gap: 12px;
+      flex-direction: column;
     }
 
-    .meal-icon {
-      width: 36px; height: 36px;
-      border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.2rem;
+    .meal-preview {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 20px;
+      flex: 1;
+    }
+    .meal-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.82rem;
+    }
+    .meal-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
       flex-shrink: 0;
     }
-    .meal-icon.breakfast { background: #FFF3E0; }
-    .meal-icon.lunch     { background: #E8F8F5; }
-    .meal-icon.dinner    { background: #EEF3FB; }
-
-    .meal-body { flex: 1; }
-    .meal-type {
-      font-size: 0.68rem;
+    .meal-row .day-label {
       font-weight: 800;
-      letter-spacing: 1px;
+      color: var(--sub);
+      font-size: 0.72rem;
+      min-width: 28px;
       text-transform: uppercase;
-      margin-bottom: 2px;
     }
-    .meal-type.breakfast { color: var(--breakfast-color); }
-    .meal-type.lunch     { color: var(--lunch-color); }
-    .meal-type.dinner    { color: var(--dinner-color); }
-
-    .meal-name {
-      font-size: 0.9rem;
+    .meal-row .dish-name {
       font-weight: 700;
       color: var(--text);
-      line-height: 1.3;
-    }
-    .meal-desc {
-      font-size: 0.75rem;
-      color: var(--sub);
-      margin-top: 2px;
-      line-height: 1.4;
-    }
-    .meal-kcal {
-      font-size: 0.72rem;
-      font-weight: 800;
-      color: #aaa;
-      white-space: nowrap;
-      margin-top: 3px;
+      flex: 1;
     }
 
-    /* ── Kids Tip ── */
-    .kids-tip {
-      margin-top: 8px;
-      background: #FFF0F6;
-      border-left: 3px solid var(--kids);
-      border-radius: 0 8px 8px 0;
-      padding: 5px 10px;
-      font-size: 0.72rem;
-      color: #c0395d;
-      font-weight: 700;
-      line-height: 1.4;
-    }
-
-    /* ── Recipe Button ── */
-    .recipe-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      margin-top: 9px;
-      background: linear-gradient(135deg, #6C5CE7, #A29BFE);
-      color: #fff;
-      border: none;
-      border-radius: 20px;
-      padding: 5px 13px;
-      font-size: 0.72rem;
-      font-weight: 800;
-      cursor: pointer;
-      font-family: 'Nunito', sans-serif;
-      letter-spacing: 0.5px;
-      transition: transform 0.15s, box-shadow 0.15s;
-    }
-    .recipe-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(108,92,231,0.35);
-    }
-    .recipe-btn:active { transform: translateY(0); }
-
-    /* ── Modal ── */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.55);
-      z-index: 1000;
+    .open-btn {
+      display: flex;
       align-items: center;
       justify-content: center;
-      padding: 20px;
-    }
-    .modal-overlay.active { display: flex; }
-
-    .modal {
-      background: #fff;
-      border-radius: 24px;
-      max-width: 560px;
-      width: 100%;
-      max-height: 90vh;
-      overflow-y: auto;
-      padding: 30px 28px 28px;
-      position: relative;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 16px; right: 18px;
-      background: #F0EDE8;
+      gap: 8px;
+      padding: 12px 20px;
+      border-radius: 16px;
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: #fff;
       border: none;
-      border-radius: 50%;
-      width: 34px; height: 34px;
-      font-size: 1.1rem;
       cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
       font-family: 'Nunito', sans-serif;
-      color: var(--text);
-      transition: background 0.2s;
+      text-decoration: none;
+      text-align: center;
+      transition: opacity 0.2s, transform 0.15s;
     }
-    .modal-close:hover { background: #e0dbd4; }
+    .open-btn:hover { opacity: 0.9; transform: scale(1.02); }
+    .week-card:nth-child(1) .open-btn { background: linear-gradient(135deg, #FF6B6B, #FF9F43); }
+    .week-card:nth-child(2) .open-btn { background: linear-gradient(135deg, #A29BFE, #6C5CE7); }
+    .week-card:nth-child(3) .open-btn { background: linear-gradient(135deg, #00CEC9, #48CFAD); }
 
-    .modal-meal-type {
-      font-size: 0.68rem;
-      font-weight: 800;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-bottom: 4px;
-      color: var(--sub);
-    }
-    .modal h2 {
-      font-size: 1.4rem;
-      font-weight: 900;
-      margin-bottom: 6px;
-      line-height: 1.2;
-      padding-right: 30px;
-    }
-    .modal-emoji { font-size: 2.2rem; margin-bottom: 10px; display: block; }
-
-    .modal-section-title {
-      font-size: 0.78rem;
-      font-weight: 900;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: var(--sub);
-      margin: 18px 0 8px;
+    .divider {
+      height: 1px;
+      background: #F0EDE8;
+      margin: 0 26px 20px;
     }
 
-    .ingredient-list {
-      list-style: none;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6px;
-    }
-    .ingredient-list li {
-      background: #F8F4F0;
-      border-radius: 10px;
-      padding: 6px 11px;
-      font-size: 0.8rem;
-      font-weight: 600;
-    }
-    .ingredient-list li span {
-      font-weight: 800;
-      color: var(--text);
-    }
-
-    .steps-list {
-      list-style: none;
-      counter-reset: step-counter;
-    }
-    .steps-list li {
-      counter-increment: step-counter;
-      display: flex;
-      gap: 12px;
-      margin-bottom: 10px;
-      font-size: 0.83rem;
-      line-height: 1.5;
-    }
-    .steps-list li::before {
-      content: counter(step-counter);
-      background: linear-gradient(135deg,#6C5CE7,#A29BFE);
-      color: #fff;
-      font-weight: 900;
-      font-size: 0.75rem;
-      min-width: 24px; height: 24px;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
-
-    .modal-kids-box {
-      margin-top: 18px;
-      background: #FFF0F6;
-      border-radius: 14px;
-      padding: 14px 16px;
-      border: 2px solid #FFD6E8;
-    }
-    .modal-kids-box .kids-title {
-      font-size: 0.8rem;
-      font-weight: 900;
-      color: var(--kids);
-      margin-bottom: 6px;
-    }
-    .modal-kids-box p {
-      font-size: 0.8rem;
-      color: #c0395d;
-      line-height: 1.5;
-    }
-
-    /* ── Prep Tips Banner ── */
-    .prep-section {
-      max-width: 1300px;
-      margin: 36px auto 0;
-      background: linear-gradient(135deg,#6C5CE7,#A29BFE);
+    /* ── Info Banner ── */
+    .info-banner {
+      max-width: 1100px;
+      margin: 50px auto 0;
+      background: linear-gradient(135deg, #6C5CE7, #A29BFE);
       border-radius: 20px;
-      padding: 26px 30px;
+      padding: 26px 32px;
       color: #fff;
     }
-    .prep-section h2 { font-size: 1.2rem; font-weight: 800; margin-bottom: 14px; }
-    .prep-grid {
+    .info-banner h2 { font-size: 1.1rem; font-weight: 800; margin-bottom: 14px; }
+    .info-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       gap: 12px;
     }
-    .prep-tip {
+    .info-item {
       background: rgba(255,255,255,0.15);
       border-radius: 14px;
       padding: 12px 16px;
@@ -387,7 +235,7 @@
       font-weight: 600;
       line-height: 1.5;
     }
-    .prep-tip strong { display: block; font-size: 0.88rem; margin-bottom: 3px; }
+    .info-item strong { display: block; font-size: 0.88rem; margin-bottom: 3px; }
 
     /* ── Footer ── */
     footer {
@@ -401,1050 +249,204 @@
 <body>
 
 <header>
-  <div class="week-label">KW 14 · 2026</div>
-  <h1>🥗 Familien-Essensplan</h1>
-  <p class="subtitle">30. März – 5. April 2026 · Gesund · Einfach · Lecker</p>
+  <div class="site-badge">Familien-Essensplan · 2026</div>
+  <h1>🥗 Wochenübersicht</h1>
+  <p class="subtitle">Alle Essenspläne auf einen Blick – gesund, einfach &amp; lecker</p>
   <div class="family-badges">
     <span class="badge">👨‍👩‍👧‍👧 4 Personen</span>
     <span class="badge">👧 4 Jahre</span>
     <span class="badge">👧 7 Jahre</span>
-    <span class="badge">🔥 Kalorientabelle inkl.</span>
     <span class="badge">🥡 Meal-Prep geeignet</span>
     <span class="badge">👩‍🍳 Rezepte per Klick</span>
   </div>
 </header>
 
-<div class="legend">
-  <div class="legend-item"><div class="legend-dot" style="background:var(--breakfast-color)"></div>Frühstück</div>
-  <div class="legend-item"><div class="legend-dot" style="background:var(--lunch-color)"></div>Mittagessen</div>
-  <div class="legend-item"><div class="legend-dot" style="background:var(--dinner-color)"></div>Abendessen</div>
-  <div class="legend-item"><div class="legend-dot" style="background:var(--kids)"></div>Kindertipp</div>
-</div>
+<p class="section-title">Essenspläne nach Woche</p>
 
-<div class="week-grid">
+<div class="weeks-grid">
 
-  <!-- MONTAG -->
-  <div class="day-card">
-    <div class="day-header">
-      <div>
-        <div class="day-name">Montag</div>
-        <div class="day-date">30. März</div>
-      </div>
-      <div class="day-kcal-badge">~1.420 kcal</div>
+  <!-- KW 14 -->
+  <a class="week-card" href="kw14.html">
+    <div class="week-card-header">
+      <div class="kw-label">Kalenderwoche 14</div>
+      <h2>KW 14 · 2026</h2>
+      <div class="dates">📅 30. März – 5. April 2026</div>
+      <div class="week-status">✓ Fertig</div>
     </div>
-
-    <div class="meal">
-      <div class="meal-top">
-        <div class="meal-icon breakfast">🥣</div>
-        <div class="meal-body">
-          <div class="meal-type breakfast">Frühstück</div>
-          <div class="meal-name">Overnight Oats mit Beeren</div>
-          <div class="meal-desc">Haferflocken, Joghurt, Chiasamen, Himbeeren &amp; Blaubeeren</div>
-          <div class="meal-kcal">~350 kcal p.P.</div>
+    <div class="week-card-body">
+      <div class="meal-preview">
+        <div class="meal-row">
+          <div class="meal-dot" style="background:#FF9F43"></div>
+          <span class="day-label">Mo</span>
+          <span class="dish-name">Overnight Oats mit Beeren</span>
+        </div>
+        <div class="meal-row">
+          <div class="meal-dot" style="background:#48CFAD"></div>
+          <span class="day-label">Di</span>
+          <span class="dish-name">Vollkornpasta Tomaten-Soße</span>
+        </div>
+        <div class="meal-row">
+          <div class="meal-dot" style="background:#5D9CEC"></div>
+          <span class="day-label">Mi</span>
+          <span class="dish-name">Gemüse-Frittata</span>
+        </div>
+        <div class="meal-row">
+          <div class="meal-dot" style="background:#FF9F43"></div>
+          <span class="day-label">Do</span>
+          <span class="dish-name">Smoothie Bowl</span>
+        </div>
+        <div class="meal-row">
+          <div class="meal-dot" style="background:#5D9CEC"></div>
+          <span class="day-label">Fr</span>
+          <span class="dish-name">Ofengemüse mit Hähnchenbrust</span>
+        </div>
+        <div class="meal-row">
+          <div class="meal-dot" style="background:#48CFAD"></div>
+          <span class="day-label">Sa</span>
+          <span class="dish-name">Selbstgemachte Gemüse-Pizza</span>
+        </div>
+        <div class="meal-row">
+          <div class="meal-dot" style="background:#5D9CEC"></div>
+          <span class="day-label">So</span>
+          <span class="dish-name">Rindfleisch-Gemüse-Eintopf</span>
         </div>
       </div>
-      <div class="kids-tip">👧 Chiasamen weglassen (Konsistenz). Beeren zerdrücken, etwas Honig dazu – Mädels lieben es!</div>
-      <button class="recipe-btn" onclick="openRecipe('mo-breakfast')">👩‍🍳 Zubereitung</button>
+      <div class="divider"></div>
+      <span class="open-btn">📋 Zum Essensplan →</span>
     </div>
+  </a>
 
-    <div class="meal">
-      <div class="meal-top">
-        <div class="meal-icon lunch">🥣</div>
-        <div class="meal-body">
-          <div class="meal-type lunch">Mittagessen</div>
-          <div class="meal-name">Rote Linsensuppe</div>
-          <div class="meal-desc">Mit Karotten, Tomaten &amp; Vollkornbrot – ideal vorgekocht</div>
-          <div class="meal-kcal">~430 kcal p.P.</div>
+  <!-- KW 15 -->
+  <a class="week-card" href="kw15.html">
+    <div class="week-card-header">
+      <div class="kw-label">Kalenderwoche 15</div>
+      <h2>KW 15 · 2026</h2>
+      <div class="dates">📅 6. – 12. April 2026</div>
+      <div class="week-status">✓ Fertig</div>
+    </div>
+    <div class="week-card-body">
+      <div class="meal-preview">
+        <div class="meal-row">
+          <div class="meal-dot" style="background:#FF9F43"></div>
+          <span class="day-label">Mo</span>
+          <span class="dish-name">Porridge mit Apfel &amp; Zimt</span>
+        </div>
+        <div class="meal-row">
+          <div class="meal-dot" style="background:#5D9CEC"></div>
+          <span class="day-label">Di</span>
+          <span class="dish-name">Lachs-Spinat-Pasta</span>
+        </div>
+        <div class="meal-row">
+          <div class="meal-dot" style="background:#48CFAD"></div>
+          <span class="day-label">Mi</span>
+          <span class="dish-name">Cremige Kartoffelsuppe</span>
+        </div>
+        <div class="meal-row">
+          <div class="meal-dot" style="background:#5D9CEC"></div>
+          <span class="day-label">Do</span>
+          <span class="dish-name">Gemüse-Quiche mit Salat</span>
+        </div>
+        <div class="meal-row">
+          <div class="meal-dot" style="background:#5D9CEC"></div>
+          <span class="day-label">Fr</span>
+          <span class="dish-name">Selbstgemachte Fischstäbchen</span>
+        </div>
+        <div class="meal-row">
+          <div class="meal-dot" style="background:#48CFAD"></div>
+          <span class="day-label">Sa</span>
+          <span class="dish-name">Flammkuchen mit Gemüse</span>
+        </div>
+        <div class="meal-row">
+          <div class="meal-dot" style="background:#48CFAD"></div>
+          <span class="day-label">So</span>
+          <span class="dish-name">Rindergulasch mit Kartoffeln</span>
         </div>
       </div>
-      <div class="kids-tip">👧 Glatt pürieren für die 4-Jährige. Keine scharfen Gewürze – mild mit Kümmel statt Chili. Mit Brot-Sticks zum Dippen!</div>
-      <button class="recipe-btn" onclick="openRecipe('mo-lunch')">👩‍🍳 Zubereitung</button>
+      <div class="divider"></div>
+      <span class="open-btn">📋 Zum Essensplan →</span>
     </div>
+  </a>
 
-    <div class="meal">
-      <div class="meal-top">
-        <div class="meal-icon dinner">🍗</div>
-        <div class="meal-body">
-          <div class="meal-type dinner">Abendessen</div>
-          <div class="meal-name">Hähnchen-Gemüse-Pfanne mit Basmatireis</div>
-          <div class="meal-desc">Paprika, Zucchini, Möhren – schnell &amp; proteinreich</div>
-          <div class="meal-kcal">~540 kcal p.P.</div>
+  <!-- KW 16 -->
+  <a class="week-card" href="kw16.html">
+    <div class="week-card-header">
+      <div class="kw-label">Kalenderwoche 16</div>
+      <h2>KW 16 · 2026</h2>
+      <div class="dates">📅 13. – 19. April 2026</div>
+      <div class="week-status">✓ Fertig</div>
+    </div>
+    <div class="week-card-body">
+      <div class="meal-preview">
+        <div class="meal-row">
+          <div class="meal-dot" style="background:#48CFAD"></div>
+          <span class="day-label">Mo</span>
+          <span class="dish-name">Minestrone mit Vollkornbrot</span>
+        </div>
+        <div class="meal-row">
+          <div class="meal-dot" style="background:#5D9CEC"></div>
+          <span class="day-label">Di</span>
+          <span class="dish-name">Kabeljau mit Kartoffelpüree</span>
+        </div>
+        <div class="meal-row">
+          <div class="meal-dot" style="background:#5D9CEC"></div>
+          <span class="day-label">Mi</span>
+          <span class="dish-name">Spaghetti Bolognese</span>
+        </div>
+        <div class="meal-row">
+          <div class="meal-dot" style="background:#5D9CEC"></div>
+          <span class="day-label">Do</span>
+          <span class="dish-name">Spinat-Ricotta-Quiche</span>
+        </div>
+        <div class="meal-row">
+          <div class="meal-dot" style="background:#5D9CEC"></div>
+          <span class="day-label">Fr</span>
+          <span class="dish-name">Backhähnchen-Streifen mit Dip</span>
+        </div>
+        <div class="meal-row">
+          <div class="meal-dot" style="background:#48CFAD"></div>
+          <span class="day-label">Sa</span>
+          <span class="dish-name">Bunte Wraps mit Hühnchen</span>
+        </div>
+        <div class="meal-row">
+          <div class="meal-dot" style="background:#48CFAD"></div>
+          <span class="day-label">So</span>
+          <span class="dish-name">Sonntagsbraten mit Gemüse</span>
         </div>
       </div>
-      <div class="kids-tip">👧 Hähnchen in kleine Würfel schneiden. Gemüse weich dünsten. Kinder-Portion mit milder Sojasoße – kein Pfeffer!</div>
-      <button class="recipe-btn" onclick="openRecipe('mo-dinner')">👩‍🍳 Zubereitung</button>
+      <div class="divider"></div>
+      <span class="open-btn">📋 Zum Essensplan →</span>
     </div>
-  </div>
-
-  <!-- DIENSTAG -->
-  <div class="day-card">
-    <div class="day-header">
-      <div>
-        <div class="day-name">Dienstag</div>
-        <div class="day-date">31. März</div>
-      </div>
-      <div class="day-kcal-badge">~1.390 kcal</div>
-    </div>
-
-    <div class="meal">
-      <div class="meal-top">
-        <div class="meal-icon breakfast">🥑</div>
-        <div class="meal-body">
-          <div class="meal-type breakfast">Frühstück</div>
-          <div class="meal-name">Vollkorntoast mit Avocado &amp; Ei</div>
-          <div class="meal-desc">Pochiertes oder hartgekochtes Ei, Avocadocreme, Prise Salz &amp; Chili</div>
-          <div class="meal-kcal">~370 kcal p.P.</div>
-        </div>
-      </div>
-      <div class="kids-tip">👧 Kein Chili für die Mädels! Hartgekochtes Ei in Scheiben – kein pochiertes. Avocado mit Zitrone &amp; Prise Salz = perfekt!</div>
-      <button class="recipe-btn" onclick="openRecipe('di-breakfast')">👩‍🍳 Zubereitung</button>
-    </div>
-
-    <div class="meal">
-      <div class="meal-top">
-        <div class="meal-icon lunch">🍝</div>
-        <div class="meal-body">
-          <div class="meal-type lunch">Mittagessen</div>
-          <div class="meal-name">Vollkornpasta mit Tomaten-Gemüsesoße</div>
-          <div class="meal-desc">Zucchini, Paprika, Spinat – Soße am Wochenende vorbereiten</div>
-          <div class="meal-kcal">~480 kcal p.P.</div>
-        </div>
-      </div>
-      <div class="kids-tip">👧 Gemüse in der Soße fein pürieren – Kids merken's nicht! Spirelli oder Farfalle für mehr Spaß. Geriebener Parmesan drauf!</div>
-      <button class="recipe-btn" onclick="openRecipe('di-lunch')">👩‍🍳 Zubereitung</button>
-    </div>
-
-    <div class="meal">
-      <div class="meal-top">
-        <div class="meal-icon dinner">🐟</div>
-        <div class="meal-body">
-          <div class="meal-type dinner">Abendessen</div>
-          <div class="meal-name">Lachsfilet mit Brokkoli &amp; Süßkartoffel</div>
-          <div class="meal-desc">Im Ofen gebacken – Omega-3-Boost für die ganze Familie</div>
-          <div class="meal-kcal">~540 kcal p.P.</div>
-        </div>
-      </div>
-      <div class="kids-tip">👧 Süßkartoffel als Püree – Kinder lieben die Süße! Lachs auf Gräten prüfen. Brokkoli zu kleinen „Bäumchen" teilen – macht's spielerisch!</div>
-      <button class="recipe-btn" onclick="openRecipe('di-dinner')">👩‍🍳 Zubereitung</button>
-    </div>
-  </div>
-
-  <!-- MITTWOCH -->
-  <div class="day-card">
-    <div class="day-header">
-      <div>
-        <div class="day-name">Mittwoch</div>
-        <div class="day-date">1. April</div>
-      </div>
-      <div class="day-kcal-badge">~1.350 kcal</div>
-    </div>
-
-    <div class="meal">
-      <div class="meal-top">
-        <div class="meal-icon breakfast">🥛</div>
-        <div class="meal-body">
-          <div class="meal-type breakfast">Frühstück</div>
-          <div class="meal-name">Naturjoghurt mit Müsli &amp; Obst</div>
-          <div class="meal-desc">Vollkorn-Müsli ohne Zuckerzusatz, Banane &amp; frische Erdbeeren</div>
-          <div class="meal-kcal">~320 kcal p.P.</div>
-        </div>
-      </div>
-      <div class="kids-tip">👧 Erdbeeren in Herz-Form schneiden für die 4-Jährige! Müsli lieber weich einweichen lassen (kein Zahnproblem). Ein Klecks Honig macht's süß genug.</div>
-      <button class="recipe-btn" onclick="openRecipe('mi-breakfast')">👩‍🍳 Zubereitung</button>
-    </div>
-
-    <div class="meal">
-      <div class="meal-top">
-        <div class="meal-icon lunch">🫘</div>
-        <div class="meal-body">
-          <div class="meal-type lunch">Mittagessen</div>
-          <div class="meal-name">Kichererbsen-Spinat-Curry mit Reis</div>
-          <div class="meal-desc">Leichtes Kokos-Curry – ballaststoffreich, sättigend &amp; meal-prep-perfekt</div>
-          <div class="meal-kcal">~510 kcal p.P.</div>
-        </div>
-      </div>
-      <div class="kids-tip">👧 Sehr mild würzen – kein Chili, nur Kurkuma &amp; Kreuzkümmel. Spinat fein hacken. Kinder-Portion mit extra Kokosmilch cremiger machen.</div>
-      <button class="recipe-btn" onclick="openRecipe('mi-lunch')">👩‍🍳 Zubereitung</button>
-    </div>
-
-    <div class="meal">
-      <div class="meal-top">
-        <div class="meal-icon dinner">🥚</div>
-        <div class="meal-body">
-          <div class="meal-type dinner">Abendessen</div>
-          <div class="meal-name">Buntes Gemüse-Frittata</div>
-          <div class="meal-desc">Paprika, Erbsen, Feta – im Ofen überbacken, warm oder kalt</div>
-          <div class="meal-kcal">~420 kcal p.P.</div>
-        </div>
-      </div>
-      <div class="kids-tip">👧 Kinder beim Belegen mitmachen lassen – das fördert die Akzeptanz! Feta sparsam (salzig). In Dreiecke schneiden = „Frittata-Pizza" 🍕</div>
-      <button class="recipe-btn" onclick="openRecipe('mi-dinner')">👩‍🍳 Zubereitung</button>
-    </div>
-  </div>
-
-  <!-- DONNERSTAG -->
-  <div class="day-card">
-    <div class="day-header">
-      <div>
-        <div class="day-name">Donnerstag</div>
-        <div class="day-date">2. April</div>
-      </div>
-      <div class="day-kcal-badge">~1.380 kcal</div>
-    </div>
-
-    <div class="meal">
-      <div class="meal-top">
-        <div class="meal-icon breakfast">🍌</div>
-        <div class="meal-body">
-          <div class="meal-type breakfast">Frühstück</div>
-          <div class="meal-name">Smoothie Bowl</div>
-          <div class="meal-desc">Gefrorene Banane, Mango, Spinat – Topping: Granola &amp; Kokosflocken</div>
-          <div class="meal-kcal">~340 kcal p.P.</div>
-        </div>
-      </div>
-      <div class="kids-tip">👧 Keinen Spinat für die 4-Jährige wenn's Widerstand gibt – einfach weglassen. Mit Bananenscheiben ein Gesicht legen = Spaß beim Essen!</div>
-      <button class="recipe-btn" onclick="openRecipe('do-breakfast')">👩‍🍳 Zubereitung</button>
-    </div>
-
-    <div class="meal">
-      <div class="meal-top">
-        <div class="meal-icon lunch">🥣</div>
-        <div class="meal-body">
-          <div class="meal-type lunch">Mittagessen</div>
-          <div class="meal-name">Reste-Curry vom Mittwoch</div>
-          <div class="meal-desc">Einfach aufgewärmt – spart Zeit &amp; Ressourcen</div>
-          <div class="meal-kcal">~450 kcal p.P.</div>
-        </div>
-      </div>
-      <div class="kids-tip">👧 Schon bekannt – Kinder essen Vertrautes gerne nochmal! Frische Naan-Brot-Streifen dazu machen's spannender.</div>
-      <button class="recipe-btn" onclick="openRecipe('do-lunch')">👩‍🍳 Zubereitung</button>
-    </div>
-
-    <div class="meal">
-      <div class="meal-top">
-        <div class="meal-icon dinner">🥕</div>
-        <div class="meal-body">
-          <div class="meal-type dinner">Abendessen</div>
-          <div class="meal-name">Zucchini-Möhren-Puffer mit Kräuterquark</div>
-          <div class="meal-desc">Vegetarisch, knusprig &amp; kinderfreundlich – Teig vorbereitbar</div>
-          <div class="meal-kcal">~400 kcal p.P.</div>
-        </div>
-      </div>
-      <div class="kids-tip">👧 Kinder können mitreiben &amp; mitformen! Quark mild würzen. Puffer klein wie Burger-Patties formen – zum Selbsttunken. Absoluter Favorit!</div>
-      <button class="recipe-btn" onclick="openRecipe('do-dinner')">👩‍🍳 Zubereitung</button>
-    </div>
-  </div>
-
-  <!-- FREITAG -->
-  <div class="day-card">
-    <div class="day-header">
-      <div>
-        <div class="day-name">Freitag</div>
-        <div class="day-date">3. April</div>
-      </div>
-      <div class="day-kcal-badge">~1.360 kcal</div>
-    </div>
-
-    <div class="meal">
-      <div class="meal-top">
-        <div class="meal-icon breakfast">🥞</div>
-        <div class="meal-body">
-          <div class="meal-type breakfast">Frühstück</div>
-          <div class="meal-name">Vollkorn-Pfannkuchen mit Obst</div>
-          <div class="meal-desc">Dinkelvollkornmehl, Ei, Milch – mit frischen Früchten &amp; Joghurt</div>
-          <div class="meal-kcal">~390 kcal p.P.</div>
-        </div>
-      </div>
-      <div class="kids-tip">👧 Freitags-Highlight! Kinder können Toppings selbst auswählen. Smiley-Gesichter aus Beeren auf den Pfannkuchen legen – macht mega Spaß!</div>
-      <button class="recipe-btn" onclick="openRecipe('fr-breakfast')">👩‍🍳 Zubereitung</button>
-    </div>
-
-    <div class="meal">
-      <div class="meal-top">
-        <div class="meal-icon lunch">🍅</div>
-        <div class="meal-body">
-          <div class="meal-type lunch">Mittagessen</div>
-          <div class="meal-name">Cremige Tomatensuppe</div>
-          <div class="meal-desc">Mit Vollkornbrot &amp; einem Klecks Sauerrahm – kann eingefroren werden</div>
-          <div class="meal-kcal">~360 kcal p.P.</div>
-        </div>
-      </div>
-      <div class="kids-tip">👧 Sehr glatt pürieren. Sauerrahm als „Smiley" oder „Herz" einrühren lassen – Kinder lieben Mitmach-Momente! Brot-Würfel zum Dippen.</div>
-      <button class="recipe-btn" onclick="openRecipe('fr-lunch')">👩‍🍳 Zubereitung</button>
-    </div>
-
-    <div class="meal">
-      <div class="meal-top">
-        <div class="meal-icon dinner">🍗</div>
-        <div class="meal-body">
-          <div class="meal-type dinner">Abendessen</div>
-          <div class="meal-name">Ofengemüse mit Hähnchenbrust</div>
-          <div class="meal-desc">Kürbis, Paprika, Zwiebeln – mit Kräuterquark-Dip</div>
-          <div class="meal-kcal">~510 kcal p.P.</div>
-        </div>
-      </div>
-      <div class="kids-tip">👧 Hähnchen als Strips schneiden = „Chicken Fingers". Zwiebeln weglassen oder gut karamellisieren. Quark-Dip in kleines Schüsselchen – zum Tunken!</div>
-      <button class="recipe-btn" onclick="openRecipe('fr-dinner')">👩‍🍳 Zubereitung</button>
-    </div>
-  </div>
-
-  <!-- SAMSTAG -->
-  <div class="day-card">
-    <div class="day-header">
-      <div>
-        <div class="day-name">Samstag</div>
-        <div class="day-date">4. April</div>
-      </div>
-      <div class="day-kcal-badge">~1.430 kcal</div>
-    </div>
-
-    <div class="meal">
-      <div class="meal-top">
-        <div class="meal-icon breakfast">🍳</div>
-        <div class="meal-body">
-          <div class="meal-type breakfast">Frühstück</div>
-          <div class="meal-name">Rührei mit Gemüse &amp; Vollkorntoast</div>
-          <div class="meal-desc">Tomaten, Paprika, Schnittlauch – entspanntes Wochenendfrühstück</div>
-          <div class="meal-kcal">~400 kcal p.P.</div>
-        </div>
-      </div>
-      <div class="kids-tip">👧 Kinder können Eier selbst quirlen! Paprika in Sternform ausstechen vor dem Braten. Kein Schnittlauch für die 4-Jährige wenn sie ihn ablehnt.</div>
-      <button class="recipe-btn" onclick="openRecipe('sa-breakfast')">👩‍🍳 Zubereitung</button>
-    </div>
-
-    <div class="meal">
-      <div class="meal-top">
-        <div class="meal-icon lunch">🍕</div>
-        <div class="meal-body">
-          <div class="meal-type lunch">Mittagessen</div>
-          <div class="meal-name">Selbstgemachte Gemüse-Pizza</div>
-          <div class="meal-desc">Vollkornteig, Tomatensauce, Mozzarella, Paprika, Champignons</div>
-          <div class="meal-kcal">~540 kcal p.P.</div>
-        </div>
-      </div>
-      <div class="kids-tip">👧 Jede Tochter bekommt ihr eigenes Pizzastück zum Belegen – das absolute Highlight! Nur ihre Lieblingsbeläge drauf. Kinder-Anteil mit extra Käse.</div>
-      <button class="recipe-btn" onclick="openRecipe('sa-lunch')">👩‍🍳 Zubereitung</button>
-    </div>
-
-    <div class="meal">
-      <div class="meal-top">
-        <div class="meal-icon dinner">🍵</div>
-        <div class="meal-body">
-          <div class="meal-type dinner">Abendessen</div>
-          <div class="meal-name">Klare Gemüsebrühe mit Einlagen</div>
-          <div class="meal-desc">Nudeln, Karotten, Sellerie – leicht &amp; wohltuend nach Pizza</div>
-          <div class="meal-kcal">~280 kcal p.P.</div>
-        </div>
-      </div>
-      <div class="kids-tip">👧 Sternchennudeln oder Buchstabennudeln statt normaler – riesiger Spaß! Karotten als Sternchen ausstechen. „Mama, ich hab meinen Namen gefunden!" 🌟</div>
-      <button class="recipe-btn" onclick="openRecipe('sa-dinner')">👩‍🍳 Zubereitung</button>
-    </div>
-  </div>
-
-  <!-- SONNTAG -->
-  <div class="day-card">
-    <div class="day-header">
-      <div>
-        <div class="day-name">Sonntag</div>
-        <div class="day-date">5. April</div>
-      </div>
-      <div class="day-kcal-badge">~1.440 kcal</div>
-    </div>
-
-    <div class="meal">
-      <div class="meal-top">
-        <div class="meal-icon breakfast">🍞</div>
-        <div class="meal-body">
-          <div class="meal-type breakfast">Frühstück</div>
-          <div class="meal-name">French Toast mit Beeren</div>
-          <div class="meal-desc">Vollkornbrot, Ei, Milch, Zimt – mit Joghurt &amp; frischen Beeren</div>
-          <div class="meal-kcal">~420 kcal p.P.</div>
-        </div>
-      </div>
-      <div class="kids-tip">👧 Kinder-Liebling! Sternförmige Ausstechform für das Brot verwenden. Zimt kommt super an. Joghurt als Dip auf die Seite – zum Eintunken!</div>
-      <button class="recipe-btn" onclick="openRecipe('so-breakfast')">👩‍🍳 Zubereitung</button>
-    </div>
-
-    <div class="meal">
-      <div class="meal-top">
-        <div class="meal-icon lunch">🥩</div>
-        <div class="meal-body">
-          <div class="meal-type lunch">Mittagessen</div>
-          <div class="meal-name">Rindfleisch-Gemüse-Eintopf</div>
-          <div class="meal-desc">Kartoffeln, Karotten, Sellerie – klassisches Sonntagsgericht, Reste einfrieren</div>
-          <div class="meal-kcal">~530 kcal p.P.</div>
-        </div>
-      </div>
-      <div class="kids-tip">👧 Fleisch sehr weich schmoren (mind. 1,5 Std.), dann zerzupfen. Sellerie kann man für die Kinder weglassen. Kartoffelstücke klein schneiden – selbst löffeln!</div>
-      <button class="recipe-btn" onclick="openRecipe('so-lunch')">👩‍🍳 Zubereitung</button>
-    </div>
-
-    <div class="meal">
-      <div class="meal-top">
-        <div class="meal-icon dinner">🥗</div>
-        <div class="meal-body">
-          <div class="meal-type dinner">Abendessen</div>
-          <div class="meal-name">Blattsalat mit Hüttenkäse &amp; Nüssen</div>
-          <div class="meal-desc">Rucola, Gurke, Kirschtomaten, Walnüsse – mit Vollkornbrot</div>
-          <div class="meal-kcal">~380 kcal p.P.</div>
-        </div>
-      </div>
-      <div class="kids-tip">👧 Kein Rucola für die Kleinen (bitter!). Stattdessen Eisbergsalat + Gurke + Tomate. ⚠️ Nüsse für 4-Jährige weglassen (Erstickungsgefahr). Dressing extra dazu.</div>
-      <button class="recipe-btn" onclick="openRecipe('so-dinner')">👩‍🍳 Zubereitung</button>
-    </div>
-  </div>
+  </a>
 
 </div>
 
-<!-- MEAL PREP TIPS -->
-<div class="prep-section">
-  <h2>🥡 Meal-Prep Tipps für die Woche</h2>
-  <div class="prep-grid">
-    <div class="prep-tip">
-      <strong>☀️ Sonntag vorbereiten</strong>
-      Overnight Oats für Montag ansetzen. Gemüse für die Woche waschen &amp; schneiden. Tomatensoße für Di kochen.
+<!-- Info Banner -->
+<div class="info-banner">
+  <h2>💡 So nutzt du die Essenspläne</h2>
+  <div class="info-grid">
+    <div class="info-item">
+      <strong>🛒 Einkaufen</strong>
+      Klick auf einen Essensplan und sieh dir alle Zutaten in den Rezepten an – ideal für die Wocheneinkaufsliste.
     </div>
-    <div class="prep-tip">
-      <strong>🍚 Reis &amp; Hülsenfrüchte</strong>
-      Großen Topf Reis am Montag kochen – reicht für mehrere Tage. Kichererbsen abends einweichen.
+    <div class="info-item">
+      <strong>👩‍🍳 Rezepte</strong>
+      Jede Mahlzeit hat einen „Zubereitung"-Button mit vollständigem Rezept, Zutaten und Schritt-für-Schritt-Anleitung.
     </div>
-    <div class="prep-tip">
-      <strong>🥣 Suppen &amp; Curries</strong>
-      Linsensuppe &amp; Curry in großen Mengen kochen und portionieren – hält 4–5 Tage im Kühlschrank.
+    <div class="info-item">
+      <strong>👧 Kindertipps</strong>
+      Jede Mahlzeit enthält spezielle Tipps für die 4- und 7-jährigen Töchter – altersgerecht und sicher.
     </div>
-    <div class="prep-tip">
-      <strong>🧊 Einfrieren</strong>
-      Tomatensuppe und Eintopf portionsweise einfrieren – perfekt für Notfalltage.
-    </div>
-    <div class="prep-tip">
-      <strong>🐟 Fisch &amp; Fleisch frisch</strong>
-      Lachs und Hähnchen am Kauftag zubereiten oder max. 1 Tag vorher marinieren.
-    </div>
-    <div class="prep-tip">
-      <strong>🧀 Quark &amp; Dips</strong>
-      Kräuterquark auf Vorrat machen – hält 3–4 Tage und passt zu vielen Gerichten.
+    <div class="info-item">
+      <strong>🥡 Meal-Prep</strong>
+      Am Ende jedes Plans gibt es konkrete Vorbereitungstipps für die Woche – spart Zeit und Stress.
     </div>
   </div>
 </div>
 
 <footer>
   <p>Kalorienwerte sind Richtwerte pro Person · Kinder (4 &amp; 7 J.) erhalten kleinere Portionen</p>
-  <p style="margin-top:6px">Erstellt mit ❤️ · KW 14 · 2026</p>
+  <p style="margin-top:6px">Erstellt mit ❤️ · Familien-Essensplan 2026</p>
 </footer>
-
-<!-- ══════════════ MODAL OVERLAY ══════════════ -->
-<div class="modal-overlay" id="modal-overlay" onclick="closeIfBackdrop(event)">
-  <div class="modal" id="modal-box">
-    <button class="modal-close" onclick="closeRecipe()">✕</button>
-    <span class="modal-emoji" id="modal-emoji"></span>
-    <div class="modal-meal-type" id="modal-meal-type"></div>
-    <h2 id="modal-title"></h2>
-    <div class="modal-section-title">🛒 Zutaten (4 Personen)</div>
-    <ul class="ingredient-list" id="modal-ingredients"></ul>
-    <div class="modal-section-title">👩‍🍳 Zubereitung</div>
-    <ol class="steps-list" id="modal-steps"></ol>
-    <div class="modal-kids-box" id="modal-kids-box">
-      <div class="kids-title">👧 Kindertipp</div>
-      <p id="modal-kids-text"></p>
-    </div>
-  </div>
-</div>
-
-<script>
-const recipes = {
-
-  /* ─── MONTAG ─── */
-  'mo-breakfast': {
-    emoji: '🥣',
-    type: 'Frühstück · Montag',
-    title: 'Overnight Oats mit Beeren',
-    ingredients: [
-      ['300 g', 'Zarte Haferflocken'],
-      ['400 ml', 'Naturjoghurt (3,5 %)'],
-      ['200 ml', 'Hafermilch oder Kuhmilch'],
-      ['2 EL', 'Chiasamen (für Erwachsene)'],
-      ['150 g', 'Himbeeren (frisch/TK)'],
-      ['100 g', 'Blaubeeren'],
-      ['2 TL', 'Honig oder Ahornsirup'],
-      ['1 Prise', 'Vanille (gemahlen)']
-    ],
-    steps: [
-      'Haferflocken, Joghurt, Milch und Vanille in einer Schüssel verrühren. Für die Erwachsenen-Portion Chiasamen dazugeben.',
-      'Mit Frischhaltefolie abdecken und mindestens 6 Stunden (am besten über Nacht) im Kühlschrank quellen lassen.',
-      'Am Morgen Himbeeren leicht andrücken, damit Saft austritt. Blaubeeren ganz lassen.',
-      'Oats in Gläser oder Schüsseln füllen, Beeren obendrauf geben.',
-      'Mit Honig oder Ahornsirup beträufeln und sofort servieren.'
-    ],
-    kids: 'Für die 4-Jährige: Chiasamen weglassen. Beeren gut zerdrücken damit keine Stücke übrig bleiben. Extra Löffelchen Honig dazu – die Mädels lieben die süße Note! Wer mag, kann noch Bananenscheiben obendrauf legen.'
-  },
-
-  'mo-lunch': {
-    emoji: '🥣',
-    type: 'Mittagessen · Montag',
-    title: 'Rote Linsensuppe',
-    ingredients: [
-      ['300 g', 'Rote Linsen'],
-      ['2 große', 'Karotten'],
-      ['1 Dose', 'Stückige Tomaten (400 g)'],
-      ['1 L', 'Gemüsebrühe (mild)'],
-      ['1', 'Zwiebel'],
-      ['2 Zehen', 'Knoblauch'],
-      ['1 TL', 'Kümmel (gemahlen)'],
-      ['½ TL', 'Kurkuma'],
-      ['2 EL', 'Olivenöl'],
-      ['Saft v.', '½ Zitrone'],
-      ['nach Bedarf', 'Vollkornbrot zum Servieren']
-    ],
-    steps: [
-      'Zwiebel und Knoblauch schälen und fein würfeln. Karotten schälen und in Würfel schneiden.',
-      'Olivenöl in einem großen Topf erhitzen, Zwiebeln darin 3 Min. glasig dünsten. Knoblauch, Kümmel und Kurkuma dazugeben, 1 Min. mitrösten.',
-      'Linsen in ein Sieb geben, unter kaltem Wasser abspülen. Zu den Gewürzen geben.',
-      'Karottenwürfel, Tomaten und Gemüsebrühe dazugeben. Aufkochen, dann bei mittlerer Hitze 20 Min. köcheln lassen bis Linsen weich sind.',
-      'Für die Kinder-Portion: Etwas Suppe herausnehmen und glatt pürieren. Für Erwachsene nur teilweise pürieren oder ganz lassen.',
-      'Mit Zitronensaft abschmecken. Achtung: Keine Schärfe für die Kinder! Mit Vollkornbrot servieren.'
-    ],
-    kids: 'Für die 4-Jährige komplett pürieren – samtige Konsistenz kommt super an. Brot-Sticks oder kleine Croutons zum Dippen machen das Essen zum Erlebnis. Kein Pfeffer, kein Chili – nur mild würzen!'
-  },
-
-  'mo-dinner': {
-    emoji: '🍗',
-    type: 'Abendessen · Montag',
-    title: 'Hähnchen-Gemüse-Pfanne mit Basmatireis',
-    ingredients: [
-      ['600 g', 'Hähnchenbrust (ohne Haut)'],
-      ['2', 'Paprika (rot & gelb)'],
-      ['1', 'Zucchini'],
-      ['2', 'Möhren'],
-      ['300 g', 'Basmatireis'],
-      ['2 EL', 'Sojasoße (mild, salzreduziert)'],
-      ['1 EL', 'Olivenöl'],
-      ['1 TL', 'Paprikapulver (edelsüß)'],
-      ['nach Geschmack', 'Schnittlauch zum Garnieren']
-    ],
-    steps: [
-      'Reis nach Packungsanweisung kochen (ca. 15 Min.).',
-      'Hähnchen in kleine mundgerechte Würfel (ca. 2 cm) schneiden. Gemüse waschen und in ähnliche Stücke schneiden – für die Kinder etwas kleiner.',
-      'Olivenöl in einer großen Pfanne erhitzen. Hähnchen bei mittlerer Hitze 5–6 Min. goldbraun anbraten.',
-      'Möhren und Paprika dazugeben, 4 Min. mitbraten. Zucchini dazugeben, weitere 3 Min. garen.',
-      'Sojasoße und Paprikapulver dazugeben, alles gut vermischen. Noch 2 Min. bei niedriger Hitze ziehen lassen.',
-      'Mit Reis anrichten. Für Kinder: Alles fein auf dem Teller verteilen, kein Pfeffer dazu.'
-    ],
-    kids: 'Hähnchen in allerkleinen Würfeln servieren. Gemüse etwas weicher dünsten als für Erwachsene. Sojasoße extra dazu – Kinder lieben das sanfte Umami-Aroma. Kein Pfeffer, kein Chili!'
-  },
-
-  /* ─── DIENSTAG ─── */
-  'di-breakfast': {
-    emoji: '🥑',
-    type: 'Frühstück · Dienstag',
-    title: 'Vollkorntoast mit Avocado & Ei',
-    ingredients: [
-      ['8 Scheiben', 'Vollkorntoast'],
-      ['2', 'Reife Avocados'],
-      ['4', 'Eier (hartgekocht)'],
-      ['1', 'Zitrone (Saft)'],
-      ['Prise', 'Meersalz'],
-      ['für Erwachsene', 'Chiliflocken'],
-      ['optional', 'Sesam zum Bestreuen']
-    ],
-    steps: [
-      'Eier in kochendem Wasser 9 Min. hartkochen. Kalt abschrecken, pellen und in Scheiben schneiden.',
-      'Avocados halbieren, Kern entfernen, Fruchtfleisch mit einer Gabel in einer Schüssel zerdrücken.',
-      'Zitronensaft und Prise Salz zur Avocado geben, gut verrühren. Für Erwachsene Chiliflocken einrühren.',
-      'Toast toasten bis er goldbraun ist.',
-      'Avocadocreme großzügig auf dem Toast verteilen, Eierscheiben obendrauf legen.',
-      'Optional mit Sesam bestreuen. Sofort servieren.'
-    ],
-    kids: 'Kein Chili für die Mädels! Hartgekochte Eier sind sicherer als pochierte. Avocado-Creme leicht salzen – mehr braucht\'s nicht. Die 4-Jährige könnte das Brot lieber als Finger-Food ohne Belag mögen – einfach ausprobieren!'
-  },
-
-  'di-lunch': {
-    emoji: '🍝',
-    type: 'Mittagessen · Dienstag',
-    title: 'Vollkornpasta mit Tomaten-Gemüsesoße',
-    ingredients: [
-      ['400 g', 'Vollkornpasta (Spirelli oder Farfalle)'],
-      ['1 Dose', 'Stückige Tomaten (400 g)'],
-      ['1', 'Zucchini'],
-      ['1', 'Paprika (rot)'],
-      ['100 g', 'Blattspinat (frisch)'],
-      ['1', 'Zwiebel'],
-      ['2 Zehen', 'Knoblauch'],
-      ['1 TL', 'Oregano getrocknet'],
-      ['2 EL', 'Olivenöl'],
-      ['50 g', 'Parmesan (gerieben)'],
-      ['Prise', 'Zucker']
-    ],
-    steps: [
-      'Pasta in Salzwasser nach Packungsanweisung al dente kochen.',
-      'Zwiebel und Knoblauch fein würfeln. Zucchini und Paprika in kleine Stücke schneiden.',
-      'Olivenöl erhitzen, Zwiebeln 3 Min. glasig dünsten. Knoblauch dazugeben, 1 Min. mitbraten.',
-      'Zucchini und Paprika dazugeben, 4 Min. anbraten. Tomaten und Oregano dazugeben.',
-      'Bei mittlerer Hitze 15 Min. köcheln lassen. Spinat in den letzten 3 Min. unterheben.',
-      'Für Kinder: Soße mit dem Pürierstab glatt pürieren – Gemüse unsichtbar! Mit Pasta mischen und Parmesan drüber streuen.'
-    ],
-    kids: 'Das Geheimtrick: Gemüse in der Soße pürieren – Kinder essen es ohne zu wissen! Farfalle oder Spirelli machen mehr Spaß als normale Spaghetti. Parmesan kommt bei allen gut an. Eine Prise Zucker nimmt die Tomatensäure.'
-  },
-
-  'di-dinner': {
-    emoji: '🐟',
-    type: 'Abendessen · Dienstag',
-    title: 'Lachsfilet mit Brokkoli & Süßkartoffel',
-    ingredients: [
-      ['4 Stück', 'Lachsfilet (à 150 g)'],
-      ['600 g', 'Süßkartoffeln'],
-      ['500 g', 'Brokkoli'],
-      ['2 EL', 'Olivenöl'],
-      ['1 TL', 'Zitronenschale (gerieben)'],
-      ['Saft v.', '1 Zitrone'],
-      ['1 TL', 'Dill (getrocknet)'],
-      ['Prise', 'Salz'],
-      ['2 EL', 'Butter (für Püree)']
-    ],
-    steps: [
-      'Backofen auf 200 °C vorheizen. Süßkartoffeln schälen, in Würfel schneiden, in Salzwasser 15 Min. weichkochen.',
-      'Lachsfilets auf Gräten prüfen und entfernen! Mit Zitronenschale, Dill, Salz und 1 EL Olivenöl einreiben.',
-      'Lachs auf ein mit Backpapier belegtes Blech legen, 15 Min. im Ofen backen.',
-      'Brokkoli in kleine „Bäumchen"-Röschen teilen, in leicht gesalzenem Wasser 6 Min. bissfest kochen.',
-      'Süßkartoffeln abgießen, mit Butter und etwas Zitronensaft zu glattem Püree stampfen.',
-      'Alles anrichten: Lachs, Brokkoli und Süßkartoffelpüree. Restlichen Zitronensaft über den Fisch träufeln.'
-    ],
-    kids: 'Süßkartoffelpüree ist bei Kindern beliebt! Brokkoli als „Bäumchen" benennen – macht\'s spielerisch. ⚠️ Lachs unbedingt gründlich auf Gräten prüfen! Kinder-Portion des Lachses in kleine Stücke zerteilen vor dem Servieren.'
-  },
-
-  /* ─── MITTWOCH ─── */
-  'mi-breakfast': {
-    emoji: '🥛',
-    type: 'Frühstück · Mittwoch',
-    title: 'Naturjoghurt mit Müsli & Obst',
-    ingredients: [
-      ['500 g', 'Naturjoghurt (3,5 %)'],
-      ['200 g', 'Vollkorn-Müsli (ohne Zuckerzusatz)'],
-      ['2', 'Bananen'],
-      ['200 g', 'Frische Erdbeeren'],
-      ['2 TL', 'Honig'],
-      ['optional', 'Kokosflocken zum Garnieren']
-    ],
-    steps: [
-      'Erdbeeren waschen, Strunk entfernen. Für Kinder in Herz-Form schneiden: Erdbeere halbieren, kleines V oben einschneiden – fertig!',
-      'Bananen in Scheiben schneiden.',
-      'Müsli in etwas Joghurt einweichen lassen (5–10 Min.) – wird weicher für die Kleinen.',
-      'Joghurt in Schüsseln füllen, Müsli drüber geben.',
-      'Obst obendrauf legen – gerne ein lustiges Gesicht aus Bananenscheiben und Erdbeeren formen.',
-      'Mit Honig beträufeln und optional Kokosflocken drüber streuen.'
-    ],
-    kids: 'Erdbeeren als Herzchen sind ein Hit! Müsli vorher in Joghurt einweichen – so gibt\'s keine harten Stücke für die 4-Jährige. Kinder beim Dekorieren mitmachen lassen – Essen wird zum Basteln!'
-  },
-
-  'mi-lunch': {
-    emoji: '🫘',
-    type: 'Mittagessen · Mittwoch',
-    title: 'Kichererbsen-Spinat-Curry mit Reis',
-    ingredients: [
-      ['2 Dosen', 'Kichererbsen (à 400 g, abgetropft)'],
-      ['200 g', 'Blattspinat (frisch)'],
-      ['1 Dose', 'Kokosmilch (400 ml)'],
-      ['1 Dose', 'Stückige Tomaten (400 g)'],
-      ['300 g', 'Basmatireis'],
-      ['1', 'Zwiebel'],
-      ['2 Zehen', 'Knoblauch'],
-      ['1 TL', 'Kurkuma'],
-      ['1 TL', 'Kreuzkümmel'],
-      ['½ TL', 'Ingwer (gemahlen)'],
-      ['2 EL', 'Kokosöl oder Olivenöl'],
-      ['Prise', 'Salz']
-    ],
-    steps: [
-      'Reis kochen. Zwiebel und Knoblauch fein würfeln.',
-      'Öl in einem großen Topf erhitzen. Zwiebeln 3 Min. glasig dünsten. Knoblauch, Kurkuma, Kreuzkümmel und Ingwer dazugeben, 1 Min. rösten.',
-      'Abgetropfte Kichererbsen, Tomaten und Kokosmilch dazugeben. Gut umrühren.',
-      'Bei mittlerer Hitze 15 Min. köcheln lassen. Spinat einrühren und weitere 3 Min. zusammenfallen lassen.',
-      'Für Kinder-Portion: Herausnehmen BEVOR Chili oder andere Schärfe dazukommt. Extra Schuss Kokosmilch für cremigere Kinderportion.',
-      'Mit Salz abschmecken. Kein Chili für Kinder! Mit Reis servieren.'
-    ],
-    kids: 'Spinat für die 4-Jährige fein hacken oder in der Portion mit dem Pürierstab kurz anpürieren. Kein Chili! Extra Kokosmilch macht\'s cremiger und milder. Wer\'s braucht: Kinder-Portion separat warm halten ohne Schärfe.'
-  },
-
-  'mi-dinner': {
-    emoji: '🥚',
-    type: 'Abendessen · Mittwoch',
-    title: 'Buntes Gemüse-Frittata',
-    ingredients: [
-      ['8', 'Eier'],
-      ['1', 'Paprika (bunt)'],
-      ['150 g', 'Tiefkühl-Erbsen'],
-      ['100 g', 'Feta'],
-      ['1', 'Zucchini (klein)'],
-      ['4 EL', 'Vollmilch'],
-      ['2 EL', 'Olivenöl'],
-      ['1 TL', 'Oregano'],
-      ['Prise', 'Salz & Pfeffer (nur Erwachsene)'],
-      ['optional', 'Cherrytomaten']
-    ],
-    steps: [
-      'Backofen auf 180 °C vorheizen. Paprika und Zucchini in kleine Würfel schneiden. Erbsen kurz auftauen.',
-      'Eier mit Milch, Salz und Oregano verquirlen. Für Kinder-Portion kein Pfeffer!',
-      'Olivenöl in einer ofenfesten Pfanne (Ø 26 cm) erhitzen. Paprika und Zucchini 3 Min. anbraten.',
-      'Erbsen dazugeben, einmal umrühren. Gemüse gleichmäßig verteilen.',
-      'Eiermasse darüber gießen, kurz stocken lassen (2 Min.). Feta darüber bröckeln.',
-      'Pfanne in den Ofen schieben und 20 Min. backen bis die Frittata fest und leicht goldbraun ist.',
-      'In Dreiecke schneiden und mit Salat servieren.'
-    ],
-    kids: 'Kinder können vor dem Backen die Toppings selbst drüber streuen – fördert Akzeptanz! „Frittata-Pizza" nennen – klingt verlockender. Feta sparsam wegen Salzgehalt. Dreiecke sind ideal zum Halten mit Kinderhand.'
-  },
-
-  /* ─── DONNERSTAG ─── */
-  'do-breakfast': {
-    emoji: '🍌',
-    type: 'Frühstück · Donnerstag',
-    title: 'Smoothie Bowl',
-    ingredients: [
-      ['2', 'Gefrorene Bananen'],
-      ['150 g', 'Gefrorene Mango-Stücke'],
-      ['1 Handvoll', 'Babyspinat (optional für Erwachsene)'],
-      ['100 ml', 'Hafer- oder Mandelmilch'],
-      ['zum Belegen', 'Granola, Kokosflocken'],
-      ['zum Belegen', 'Frische Bananenscheiben'],
-      ['zum Belegen', 'Beeren nach Wahl']
-    ],
-    steps: [
-      'Gefrorene Bananen und Mango vorab aus dem Tiefkühler nehmen und 5 Min. leicht antauen.',
-      'Früchte mit Milch in einen Hochleistungsmixer geben. Für Erwachsenen-Portion Spinat dazugeben.',
-      'Alles zu einer cremigen, festen Masse mixen – so wenig Flüssigkeit wie nötig, damit die Bowl löffelbar bleibt.',
-      'In Schüsseln füllen. Mit Granola, Kokosflocken, Bananenscheiben und Beeren belegen.',
-      'Für Kinder: Ein lustiges Gesicht auf die Bowl legen – Augen aus Blaubeeren, Mund aus Bananenscheiben, Haare aus Kokosflocken.',
-      'Sofort servieren – schmilzt schnell!'
-    ],
-    kids: 'Für die 4-Jährige keinen Spinat (Farbe und Geruch können abschrecken). Mit Früchten ein Gesicht auf der Bowl gestalten – das macht Spaß und lenkt vom „Gesundsein" ab! Kinder lieben die Eis-Konsistenz.'
-  },
-
-  'do-lunch': {
-    emoji: '🥣',
-    type: 'Mittagessen · Donnerstag',
-    title: 'Reste-Curry vom Mittwoch',
-    ingredients: [
-      ['gesamte', 'Curry-Reste vom Mittwoch'],
-      ['optional', 'Naan-Brot (fertig, zum Aufwärmen)'],
-      ['optional', 'Frische Kokosmilch zum Verdünnen']
-    ],
-    steps: [
-      'Curry in einem Topf bei mittlerer Hitze aufwärmen. Wenn zu dick: Schuss Kokosmilch oder Wasser dazu.',
-      'Naan-Brot im Toaster oder kurz in der Pfanne erwärmen – in Streifen schneiden für die Kinder.',
-      'Curry in Schüsseln füllen. Mit Naan-Streifen servieren.',
-      'Optional: Frischen Koriander für Erwachsene drüber streuen.'
-    ],
-    kids: 'Vertrautes Essen kein Problem! Kinder essen Reste oft sogar lieber, weil sie die Aromen schon kennen. Naan-Streifen zum Dippen machen\'s interessanter. Falls zu viel übrig: Rest einfrieren!'
-  },
-
-  'do-dinner': {
-    emoji: '🥕',
-    type: 'Abendessen · Donnerstag',
-    title: 'Zucchini-Möhren-Puffer mit Kräuterquark',
-    ingredients: [
-      ['2 große', 'Zucchini'],
-      ['3', 'Möhren'],
-      ['2', 'Eier'],
-      ['4 EL', 'Vollkornmehl'],
-      ['Prise', 'Salz'],
-      ['2 EL', 'Olivenöl zum Braten'],
-      ['400 g', 'Magerquark'],
-      ['1 Bund', 'Schnittlauch'],
-      ['1 Zehe', 'Knoblauch (für Erwachsene)'],
-      ['Prise', 'Salz & Prise Zitronensaft (Quark)']
-    ],
-    steps: [
-      'Zucchini und Möhren grob raspeln. In ein sauberes Küchentuch geben und kräftig ausdrücken – Feuchtigkeit muss raus!',
-      'Geraspeltes Gemüse, Eier, Mehl und Prise Salz zu einem Teig mischen.',
-      'Öl in einer Pfanne erhitzen. Kleine Puffer (wie Burger-Patties) formen – für Kinder besonders klein machen.',
-      'Puffer bei mittlerer Hitze je 3–4 Min. pro Seite goldbraun braten.',
-      'Quark mit fein geschnittenem Schnittlauch, Salz und Zitronensaft verrühren. Für Erwachsene Knoblauch dazu.',
-      'Puffer auf Küchenpapier abtropfen lassen. Mit Quark servieren.'
-    ],
-    kids: 'Kinder können das Gemüse reiben (mit Sicherheitsreibe) und die Puffer mitformen! Kleine Puffer sind toll zum Selbst-Dippen in den Quark. Knoblauch im Quark weglassen für die Kleinen. Absoluter Familienliebling!'
-  },
-
-  /* ─── FREITAG ─── */
-  'fr-breakfast': {
-    emoji: '🥞',
-    type: 'Frühstück · Freitag',
-    title: 'Vollkorn-Pfannkuchen mit Obst',
-    ingredients: [
-      ['200 g', 'Dinkelvollkornmehl'],
-      ['3', 'Eier'],
-      ['300 ml', 'Milch'],
-      ['1 EL', 'Butter (für den Teig)'],
-      ['Prise', 'Salz'],
-      ['Butter oder Öl', 'zum Braten'],
-      ['200 g', 'Joghurt'],
-      ['200 g', 'Gemischte Beeren'],
-      ['2', 'Bananen'],
-      ['2 TL', 'Honig']
-    ],
-    steps: [
-      'Mehl, Eier, Milch, geschmolzene Butter und Salz zu einem glatten Teig verrühren. 10 Min. rasten lassen.',
-      'Etwas Butter oder Öl in einer Pfanne erhitzen. Eine Kelle Teig hineingeben und schwenken bis die Pfanne bedeckt ist.',
-      'Bei mittlerer Hitze 2–3 Min. backen bis die Unterseite goldbraun ist, dann wenden, weitere 1–2 Min. backen.',
-      'Beeren waschen, Bananen in Scheiben schneiden.',
-      'Pfannkuchen mit Früchten belegen, Joghurt drüber geben, mit Honig beträufeln.',
-      'Für Kinder: Beeren und Bananenscheiben zu einem lustigen Gesicht auf dem Pfannkuchen arrangieren!'
-    ],
-    kids: 'Das Freitags-Highlight für die ganze Familie! Kinder dürfen ihre Toppings selbst wählen und auf den Pfannkuchen legen. Ein Smiley-Gesicht aus Beeren macht\'s unvergesslich. Mama oder Papa können herzförmige Pfannkuchen formen!'
-  },
-
-  'fr-lunch': {
-    emoji: '🍅',
-    type: 'Mittagessen · Freitag',
-    title: 'Cremige Tomatensuppe',
-    ingredients: [
-      ['2 Dosen', 'Ganze Tomaten (à 400 g)'],
-      ['1', 'Zwiebel'],
-      ['2 Zehen', 'Knoblauch'],
-      ['1 EL', 'Tomatenmark'],
-      ['500 ml', 'Gemüsebrühe'],
-      ['100 ml', 'Sahne oder Kokosmilch'],
-      ['1 TL', 'Oregano'],
-      ['Prise', 'Zucker'],
-      ['2 EL', 'Olivenöl'],
-      ['Sauerrahm', 'zum Servieren'],
-      ['Vollkornbrot', 'zum Servieren']
-    ],
-    steps: [
-      'Zwiebel und Knoblauch fein würfeln. Olivenöl erhitzen, beides 3 Min. glasig dünsten.',
-      'Tomatenmark kurz anrösten (1 Min.), Tomaten, Brühe und Oregano dazugeben.',
-      'Prise Zucker dazugeben. Bei mittlerer Hitze 20 Min. köcheln.',
-      'Suppe mit dem Pürierstab sehr glatt pürieren – für Kinder unbedingt danach noch durch ein Sieb streichen für extra-sämige Textur.',
-      'Sahne einrühren und nochmals kurz aufwärmen. Mit Salz abschmecken.',
-      'In Schüsseln füllen. Sauerrahm drüber geben – Kinder dürfen ein Herz oder Smiley einrühren. Mit Brot-Würfeln servieren.'
-    ],
-    kids: 'Sehr glatt pürieren und durch Sieb streichen – keine Stückchen! Sauerrahm als Klecks drüber gibt Kinder die Möglichkeit selbst zu rühren. Brot-Würfel zum Dippen sind ein Hit. Die 4-Jährige kann den Sauerrahm selbst einrühren!'
-  },
-
-  'fr-dinner': {
-    emoji: '🍗',
-    type: 'Abendessen · Freitag',
-    title: 'Ofengemüse mit Hähnchenbrust',
-    ingredients: [
-      ['600 g', 'Hähnchenbrust'],
-      ['400 g', 'Kürbis (Hokkaido)'],
-      ['2', 'Paprika (bunt)'],
-      ['1', 'Zucchini'],
-      ['1', 'Rote Zwiebel'],
-      ['3 EL', 'Olivenöl'],
-      ['1 TL', 'Paprikapulver (edelsüß)'],
-      ['1 TL', 'Oregano'],
-      ['300 g', 'Magerquark'],
-      ['1 Bund', 'Schnittlauch'],
-      ['Prise', 'Salz & Zitronensaft']
-    ],
-    steps: [
-      'Backofen auf 200 °C vorheizen. Kürbis (mit Schale) und Paprika in Stücke schneiden, Zucchini in Scheiben, Zwiebel in Spalten.',
-      'Hähnchen in breite Streifen (Chicken Strips) schneiden – für die Kinder mundgerecht!',
-      'Gemüse und Hähnchen auf ein großes Backblech geben. Olivenöl, Paprikapulver, Oregano und Prise Salz drüber geben. Gut vermischen.',
-      'Für Kinder: Zwiebeln beiseite legen oder separat auf dem Blech platzieren.',
-      'Im Ofen 25–30 Min. rösten bis alles goldbraun und gar ist.',
-      'Quark mit Schnittlauch, Salz und Zitronensaft verrühren. In kleinen Schüsselchen separat servieren – zum Dippen!'
-    ],
-    kids: 'Hähnchen als „Chicken Fingers" – ein Wort und alle sind begeistert! Quark-Dip in eigenem Schüsselchen servieren – Kinder tunken leidenschaftlich gern. Zwiebeln weglassen oder sehr weich rösten. Kürbis wird durch das Rösten süßlich!'
-  },
-
-  /* ─── SAMSTAG ─── */
-  'sa-breakfast': {
-    emoji: '🍳',
-    type: 'Frühstück · Samstag',
-    title: 'Rührei mit Gemüse & Vollkorntoast',
-    ingredients: [
-      ['8', 'Eier'],
-      ['2', 'Tomaten'],
-      ['1', 'Paprika'],
-      ['½ Bund', 'Schnittlauch'],
-      ['4 EL', 'Milch'],
-      ['2 EL', 'Butter'],
-      ['8 Scheiben', 'Vollkorntoast'],
-      ['Prise', 'Salz']
-    ],
-    steps: [
-      'Eier mit Milch und Prise Salz verquirlen. Kinder dürfen selbst quirlen – macht Spaß!',
-      'Tomaten in Würfel schneiden, Paprika in kleine Stücke. Optional: Paprika in Sternform ausstechen.',
-      'Butter in einer Pfanne bei niedriger Hitze schmelzen. Tomaten und Paprika kurz (2 Min.) anschwitzen.',
-      'Ei-Milch-Mischung dazugeben. Bei niedriger Hitze langsam stocken lassen, dabei mit einem Holzlöffel sanft rühren.',
-      'Wenn das Ei cremig-fest ist (nicht trocken!), vom Herd nehmen.',
-      'Toast toasten. Schnittlauch fein schneiden und über das Rührei geben. Sofort servieren.'
-    ],
-    kids: 'Kinder können die Eier selbst quirlen! Paprika mit Ausstechförmchen in Sterne oder Herzen schneiden bevor man brät – macht es spielerisch. Schnittlauch für die 4-Jährige weglassen wenn sie ihn nicht mag.'
-  },
-
-  'sa-lunch': {
-    emoji: '🍕',
-    type: 'Mittagessen · Samstag',
-    title: 'Selbstgemachte Gemüse-Pizza',
-    ingredients: [
-      ['400 g', 'Vollkornmehl (Type 1050)'],
-      ['1 Päckchen', 'Trockenhefe (7 g)'],
-      ['250 ml', 'Lauwarmes Wasser'],
-      ['1 TL', 'Salz'],
-      ['2 EL', 'Olivenöl (Teig)'],
-      ['1 Dose', 'Stückige Tomaten (für Soße)'],
-      ['1 TL', 'Oregano (Soße)'],
-      ['250 g', 'Mozzarella'],
-      ['2', 'Paprika (bunt)'],
-      ['150 g', 'Champignons'],
-      ['nach Wunsch', 'Mais, Oliven, Rucola']
-    ],
-    steps: [
-      'Hefe in lauwarmem Wasser auflösen. Mehl, Salz und Olivenöl dazugeben, zu einem geschmeidigen Teig kneten (8–10 Min.).',
-      'Teig abgedeckt 1 Stunde an einem warmen Ort gehen lassen.',
-      'Tomaten mit Oregano und Prise Salz verrühren – Soße fertig!',
-      'Backofen auf 220 °C vorheizen (Umluft). Teig auf Backpapier dünn ausrollen.',
-      'Tomatensauce drauf verteilen. Mozzarella zerreißen und verteilen.',
-      'Jede Tochter belegt IHREN Pizzateil selbst! Gemüse nach Wunsch drauf legen.',
-      '15–18 Min. backen bis der Rand goldbraun und der Käse blubbert.'
-    ],
-    kids: 'Das absolute Highlight – jede Tochter bekommt ihr eigenes Pizzastück zum selbst Belegen! Das fördert Autonomie und Akzeptanz. Extra Käse auf der Kinderseite ist erlaubt. Gemeinsam den Teig kneten macht Spaß!'
-  },
-
-  'sa-dinner': {
-    emoji: '🍵',
-    type: 'Abendessen · Samstag',
-    title: 'Klare Gemüsebrühe mit Einlagen',
-    ingredients: [
-      ['1,5 L', 'Gemüsebrühe (mild, selbst oder Würfel)'],
-      ['150 g', 'Sternchennudeln oder Buchstabennudeln'],
-      ['2', 'Karotten'],
-      ['1 Stange', 'Sellerie'],
-      ['½ Stange', 'Lauch'],
-      ['Prise', 'Salz'],
-      ['optional', 'Frische Petersilie']
-    ],
-    steps: [
-      'Karotten schälen – für Kinder: mit Ausstechförmchen Sternchen ausstechen! Sellerie und Lauch in feine Scheiben schneiden.',
-      'Brühe aufkochen. Gemüse dazugeben und 10 Min. bei mittlerer Hitze kochen.',
-      'Nudeln dazugeben und nach Packungsanweisung gar kochen.',
-      'Mit Salz abschmecken. Petersilie fein hacken und dazugeben.',
-      'In tiefen Tellern oder Schüsseln servieren.',
-      'Kinder auf die Nudeln hinweisen: „Schau mal, welche Buchstaben du findest!"'
-    ],
-    kids: '⭐ Buchstabennudeln oder Sternchennudeln statt normaler – macht riesigen Spaß! Karotten als Sternchen ausstechen. Kinder lieben es wenn sie ihren Anfangsbuchstaben im Teller finden. Nach der Pizza perfekt als leichte Abendmahlzeit.'
-  },
-
-  /* ─── SONNTAG ─── */
-  'so-breakfast': {
-    emoji: '🍞',
-    type: 'Frühstück · Sonntag',
-    title: 'French Toast mit Beeren',
-    ingredients: [
-      ['8 Scheiben', 'Vollkornbrot (etwas älter)'],
-      ['4', 'Eier'],
-      ['100 ml', 'Milch'],
-      ['1 TL', 'Zimt (gemahlen)'],
-      ['1 Prise', 'Vanillezucker'],
-      ['Butter', 'zum Braten'],
-      ['200 g', 'Joghurt'],
-      ['200 g', 'Gemischte Beeren'],
-      ['2 TL', 'Honig'],
-      ['optional', 'Ausstechform Sternchen/Herz']
-    ],
-    steps: [
-      'Eier mit Milch, Zimt und Vanillezucker gut verquirlen.',
-      'Optional: Brotscheiben mit einer Ausstechform in Herzchen oder Sterne schneiden – Kinder lieben das!',
-      'Brotscheiben in der Ei-Mischung von beiden Seiten kurz einweichen (30 Sek. pro Seite).',
-      'Butter in einer Pfanne schmelzen. Brot bei mittlerer Hitze 3 Min. pro Seite goldbraun braten.',
-      'Auf Tellern anrichten. Beeren drüber geben, Joghurt als Klecks daneben.',
-      'Mit Honig beträufeln. Sofort servieren!'
-    ],
-    kids: 'Brotscheiben in Herzform oder Sternenform = Kinder-Highlight! Zimt kommt bei fast allen Kindern gut an. Joghurt extra als Dip in ein Schüsselchen – zum Eintunken. Der süße Sonntagsmorgen wird zum Lieblingsritual!'
-  },
-
-  'so-lunch': {
-    emoji: '🥩',
-    type: 'Mittagessen · Sonntag',
-    title: 'Rindfleisch-Gemüse-Eintopf',
-    ingredients: [
-      ['600 g', 'Rindfleisch (Suppenfleisch oder Gulaschfleisch)'],
-      ['400 g', 'Kartoffeln (festkochend)'],
-      ['3', 'Karotten'],
-      ['2 Stangen', 'Sellerie (optional für Kinder)'],
-      ['1', 'Zwiebel'],
-      ['1,5 L', 'Rindsuppe oder Wasser + Brühwürfel'],
-      ['2', 'Lorbeerblätter'],
-      ['1 TL', 'Liebstöckel (Maggikraut)'],
-      ['Prise', 'Salz'],
-      ['optional', 'Frische Petersilie']
-    ],
-    steps: [
-      'Rindfleisch in mittlere Würfel (3–4 cm) schneiden. In einem großen Topf ohne Fett von allen Seiten kräftig anbraten.',
-      'Gewürfelte Zwiebel dazugeben, 2 Min. mitrösten. Mit Suppe aufgießen.',
-      'Lorbeerblätter und Liebstöckel dazugeben. Aufkochen, dann 1,5 Stunden bei niedriger Hitze sanft schmoren.',
-      'Kartoffeln schälen und in Würfel schneiden. Karotten und Sellerie in Scheiben schneiden.',
-      'Gemüse dazugeben, weitere 25 Min. garen bis alles weich ist.',
-      'Lorbeerblätter entfernen. Mit Salz abschmecken. Petersilie dazugeben. Für Kinder: Fleisch mit einer Gabel zerzupfen.'
-    ],
-    kids: 'Fleisch unbedingt sehr weich schmoren und dann zerzupfen – keine großen Stücke für die Kleinen! Sellerie kann weggelassen werden. Kartoffeln schön weich garen damit sie leicht zu essen sind. Das klassische Sonntagsgericht macht die ganze Familie satt!'
-  },
-
-  'so-dinner': {
-    emoji: '🥗',
-    type: 'Abendessen · Sonntag',
-    title: 'Blattsalat mit Hüttenkäse & Nüssen',
-    ingredients: [
-      ['für Erwachsene', 'Rucola & gemischte Blätter'],
-      ['für Kinder', 'Eisbergsalat (milder!)'],
-      ['1', 'Gurke'],
-      ['200 g', 'Kirschtomaten'],
-      ['250 g', 'Hüttenkäse'],
-      ['für Erwachsene', 'Walnüsse (50 g)'],
-      ['4 Scheiben', 'Vollkornbrot'],
-      ['3 EL', 'Olivenöl'],
-      ['2 EL', 'Zitronensaft'],
-      ['1 TL', 'Honig'],
-      ['Prise', 'Salz']
-    ],
-    steps: [
-      'Salatblätter waschen und trockenschleudern. Für Kinder Eisbergsalat in mundgerechte Stücke zupfen (kein bitterer Rucola!).',
-      'Gurke in Scheiben oder Halbmonde schneiden. Kirschtomaten halbieren.',
-      'Dressing: Olivenöl, Zitronensaft, Honig und Salz verquirlen.',
-      'Salat, Gurke und Tomaten auf Tellern anrichten. Hüttenkäse drüber geben.',
-      'Für Erwachsene: Walnüsse grob hacken und drüber streuen.',
-      'Dressing über den Salat geben. Mit Vollkornbrot servieren.'
-    ],
-    kids: '⚠️ Walnüsse für die 4-Jährige weglassen – Erstickungsgefahr! Rucola ist bitter – Eisbergsalat stattdessen nehmen. Dressing extra dazu geben damit Kinder selbst dosieren. Kirschtomaten halbieren für die Kleine. Hüttenkäse mögen viele Kinder gerne!'
-  }
-
-};
-
-function openRecipe(id) {
-  const r = recipes[id];
-  if (!r) return;
-
-  document.getElementById('modal-emoji').textContent = r.emoji;
-  document.getElementById('modal-meal-type').textContent = r.type;
-  document.getElementById('modal-title').textContent = r.title;
-
-  const ing = document.getElementById('modal-ingredients');
-  ing.innerHTML = r.ingredients.map(([amount, name]) =>
-    `<li><span>${amount}</span> ${name}</li>`
-  ).join('');
-
-  const steps = document.getElementById('modal-steps');
-  steps.innerHTML = r.steps.map(s => `<li>${s}</li>`).join('');
-
-  document.getElementById('modal-kids-text').textContent = r.kids;
-
-  document.getElementById('modal-overlay').classList.add('active');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeRecipe() {
-  document.getElementById('modal-overlay').classList.remove('active');
-  document.body.style.overflow = '';
-}
-
-function closeIfBackdrop(e) {
-  if (e.target === document.getElementById('modal-overlay')) closeRecipe();
-}
-
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeRecipe();
-});
-</script>
 
 </body>
 </html>
